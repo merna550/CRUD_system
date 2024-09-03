@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Zain";
+  src: url("./assets/fonts/Zain-Regular.ttf");
+}
+
+body {
+  margin: 0;
+  font-family: "Zain", sans-serif;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+}
+
+.App {
+  text-align: center;
+}
