@@ -7,11 +7,11 @@ import { User, UserDocument } from 'src/models/users.models';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-  Add(body: UserDto) {
+  Add(body: UserDto): Promise<User> {
     return this.userModel.create(body);
   }
 
-  Update(id: string, body: UserDto) {
+  Update(id: string, body: UserDto): Promise<User | null> {
     return this.userModel.findByIdAndUpdate(
       { _id: id },
       { $set: body },
@@ -19,11 +19,11 @@ export class UsersService {
     );
   }
 
-  Delete(id: string) {
+  Delete(id: string): Promise<{ acknowledged: boolean; deletedCount: number }> {
     return this.userModel.deleteOne({ _id: id });
   }
 
-  FindAll() {
+  FindAll(): Promise<User[]> {
     return this.userModel.find();
   }
   // FindOne(id: string) {

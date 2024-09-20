@@ -1,0 +1,52 @@
+version: '3.1'
+services:
+  backend:
+    container_name: nestjs-container
+    build: .
+    volumes:
+      - ./src:/app/src:ro
+    ports:
+      - '5001:5001'
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo
+    networks:
+      - crud_network
+      
+  frontend:
+    container_name: reactjs-container
+    build:
+      context: ./client # assuming your frontend files are in a folder named 'frontend'
+      dockerfile: Dockerfile # Dockerfile for your React app
+    volumes:
+      - ./client/src:/app/src/client:ro
+    ports:
+      - '3000:3000' # React app usually runs on port 3000
+    environment:
+      - NODE_ENV=development
+    networks:
+      - crud_network
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mernaziad
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - crud_network
+
+volumes:
+  mongo-data:
+  frontend-data:
+
+networks:
+  crud_network:
+    driver: bridge

@@ -26,7 +26,7 @@ async function bootstrap() {
   );
   app.use(
     cors({
-      origin: 'http://localhost:3000', // ضع هنا عنوان الواجهة الأمامية الخاصة بك
+      origin: 'http://localhost:3000',
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       allowedHeaders: 'Content-Type, Authorization',
     }),
